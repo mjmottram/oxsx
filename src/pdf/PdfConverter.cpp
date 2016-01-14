@@ -26,7 +26,7 @@ PdfConverter::ToBinnedPdf(const IntegrablePdf& analytic_, const AxisCollection& 
     
     return binnedPdf;
 }
-
+/*
 TH1D
 PdfConverter::ToTH1D(const BinnedPdf& pdf_){
     if(pdf_.GetNDims() != 1)
@@ -57,6 +57,7 @@ PdfConverter::ToTH1D(const Histogram& histo_){
         rtHist.SetBinContent(bin+1, histo_.GetBinContent(bin));    
     return rtHist;                         
 }
+*/
 
 BinnedPdf
 PdfConverter::Marginalise(const BinnedPdf& binnedPdf_, 

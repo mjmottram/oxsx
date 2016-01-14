@@ -3,7 +3,7 @@
 /**************************************************************/
 #ifndef __PDF_CONVERTER__
 #define __PDF_CONVERTER__
-#include <TH1D.h>
+//#include <TH1D.h>
 #include <vector>
 
 class BinnedPdf;
@@ -13,12 +13,12 @@ class Histogram;
 
 class PdfConverter{
  public:
-    PdfConverter();
-    ~PdfConverter();
+  PdfConverter() {};
+  ~PdfConverter() {};
     
     static BinnedPdf ToBinnedPdf(const IntegrablePdf&, const AxisCollection& axes_);
-    static TH1D      ToTH1D(const BinnedPdf&);
-    static TH1D      ToTH1D(const Histogram&);
+    //    static TH1D      ToTH1D(const BinnedPdf&);
+    //    static TH1D      ToTH1D(const Histogram&);
     
     // 2nd arg is the vec of (data) indicies to keep (not to project out)
     static BinnedPdf Marginalise(const BinnedPdf& binnedPdf_, const std::vector<size_t>& indices_);

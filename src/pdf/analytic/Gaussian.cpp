@@ -2,6 +2,7 @@
 #include <math.h>
 #include <PdfExceptions.h>
 #include <iostream>
+#include <gsl/gsl_cdf.h>
 
 // Set/Get Parameters are the protected interface from base class Integrable Pdf
 

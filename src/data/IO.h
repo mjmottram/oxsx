@@ -19,7 +19,7 @@ class IO{
     static void SaveDataSet(const DataSet&, const std::string& filename_);
     static OXSXDataSet LoadDataSet(const std::string& filename_);
     
-    static void SaveHistogram(const Histogram& hist, const std::string& filename_);
+    //    static void SaveHistogram(const Histogram& hist, const std::string& filename_);
     static Histogram LoadHistogram(const std::string& filename_);
 
  private:

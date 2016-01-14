@@ -3,6 +3,11 @@ import os
 import sys
 from build_tools import get_gsl_flags, get_arma_flags, get_root_flags, write_compile_script, get_hdf_flags
 
+BOOST = '/Users/matthewmottram/snoPlus/software/boost_1_59_0'
+BOOSTLIBPATH = BOOST + "/libs"
+#BOOST = '/usr/local/Cellar/boost/1.58.0'
+#BOOSTLIBPATH = BOOST + "/lib"
+
 # Get the locations of root, armadillo and gsl from root-config and env.sh
 root_incs, root_libs  = get_root_flags()
 hdf5_incs, hdf5_libs  = get_hdf_flags()
@@ -37,14 +42,28 @@ env.Default(headers)
 # Create the build environment
 print hdf5_incs
 env = Environment(CCFLAGS = '-O2', 
-                  CPPPATH = ["include", hdf5_incs, armadillo_include, gsl_include] + root_incs
+                  CPPPATH = ["include", hdf5_incs, armadillo_include, gsl_include, BOOST, '/usr/include/python2.7'] + root_incs,
+                  LIBPATH = ['./', BOOSTLIBPATH, "/usr/lib"],
+                  RPATH = ['./', BOOSTLIBPATH]
                   )
 
 # Build the library
 objects = [env.Object(x) for x in source_files]
 
 lib = env.Library("build/liboxsx", objects)
-env.Default([objects, lib])
+
+#shlib = env.SharedLibrary('oxsx', source_files)
+shlib = env.SharedLibrary('oxsx', ['src/bindings/BoostBindings.cpp', 'src/pdf/Pdf.cpp', 'src/pdf/IntegrablePdf.cpp', 'src/pdf/analytic/Gaussian.cpp', 'src/data/DataRepresentation.cpp'], 
+                          LIBPATH=['build', gsl_lib],
+                          LIBS=['python', 'oxsx', 'boost_python', 'gsl', 'gslcblas'], 
+                          SHLIBPREFIX='', SHLIBSUFFIX='.so')
+
+#, 'src/pdf/Pdf.cpp', 'src/data/DataRepresentation.cpp'], SHLIBPREFIX=''
+#, LIBS=[BOOST_PYTHON_LIB])
+
+env.Default([objects, lib])#, shlib])
+env.Default(shlib)
+
 
 
 ############################################################
