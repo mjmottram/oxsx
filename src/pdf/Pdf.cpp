@@ -32,3 +32,14 @@ Pdf::SetDataRep(const DataRepresentation& rep_) {fDataRep = rep_;}
 
 DataRepresentation
 Pdf::GetDataRep() const {return fDataRep;}
+
+/*
+#include <boost/python.hpp>
+void export_pdf() {
+  // Abstract classes require the noncopyable descriptor
+  boost::python::class_<Pdf, boost::noncopyable>("Pdf", boost::python::no_init)
+    .def("get_n_dims", &Pdf::GetNDims)
+    .def("set_data_rep", &Pdf::SetDataRep)
+    .def("get_data_rep", &Pdf::GetDataRep);
+}
+*/

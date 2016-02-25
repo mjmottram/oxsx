@@ -1,5 +1,5 @@
 from dependency   import Dependency, VALID_FIELDS
-from ConfigParser import ConfigParser
+from ConfigParser import ConfigParser, NoOptionError
 from SCons.Util   import Split
 from sys import exit
 from SCons import Environment
@@ -13,8 +13,9 @@ def read_dependencies(filename):
         try:
             libs   = cparse.get(dep_name, "libs")
             cheads = cparse.get(dep_name, "check_headers")
-        except KeyError:
+        except NoOptionError:
             print "Incomplete dependency spec for {0}, (needs libs & check_headers)".format(dep_name)
+            raise
         dependencies[dep_name] = Dependency(dep_name, libs, cheads)
     return dependencies
 

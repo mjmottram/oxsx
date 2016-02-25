@@ -18,10 +18,11 @@ ROOTMultiPlot::AddPdf(const BinnedPdf& pdf_, const std::string name_){
   if (nDims != 1)
     throw DimensionError("ROOTMultiPlot::Added dim  != 1 binned pdf!");
   
-  TH1D rootHist = PdfConverter::ToTH1D(pdf_);
+  /*  TH1D rootHist = PdfConverter::ToTH1D(pdf_);
   rootHist.SetDirectory(0);
   rootHist.GetXaxis()->SetTitle(pdf_.GetAxes().GetAxis(0).GetLatexName().c_str());
   AddPdf(rootHist, name_);
+  */
 }
 
 void 
