@@ -18,3 +18,6 @@ env.SConscript("test/unit/SConscript",
 
 # now create the executibles for running user scripts
 env.SConscript("bin/SConscript")
+
+# build the bindings
+env.SConscript("bindings/SConscript")

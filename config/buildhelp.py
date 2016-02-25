@@ -13,25 +13,36 @@ def read_dependencies(filename):
         try:
             libs   = cparse.get(dep_name, "libs")
             cheads = cparse.get(dep_name, "check_headers")
+            if cparse.has_option(dep_name, 'core'):
+                core = cparse.getboolean(dep_name, 'core')
+            else:
+                core = True
         except NoOptionError:
             print "Incomplete dependency spec for {0}, (needs libs & check_headers)".format(dep_name)
             raise
-        dependencies[dep_name] = Dependency(dep_name, libs, cheads)
+        dependencies[dep_name] = Dependency(dep_name, libs, cheads, core)
     return dependencies
 
 def check_dependency(conf, dependency):
     print "\nChecking {0} dependencies..".format(dependency.name)
+    exists = True
     for header in Split(dependency.check_headers):
         if not conf.CheckCXXHeader(header):
+            exists = False
             print('!! Cannot locate header {0} ...'.format(header))
-            exit(0)
+            if dependency.core:
+                exit(0)
                 
     # check libs
     for lib in Split(dependency.libs):
         if not conf.CheckLib(lib):
+            exists = False
             print('!! Cannot locate library {0}'.format(lib))
-            exit(0)
-        
+            if dependency.core:
+                exit(0)
+
+    return exists
+
 
 def sanity_checks(conf):
     if not conf.CheckCXX():
@@ -66,10 +77,9 @@ def update_and_check_env(conf, dependencies):
             conf.env.Append(CPPPATH = [dep.header_path])
         if dep.flags:
             conf.env.Append(CFLAGS = [dep.flags])
-        if dep.libs:
-            conf.env.Append(LIBS = Split(dep.libs))
         if dep.lib_path:
             conf.env.Append(LIBPATH = [dep.lib_path])
             conf.env.Append(RPATH   = [dep.lib_path])
-        check_dependency(conf, dep)
+        if check_dependency(conf, dep) and dep.libs:
+            conf.env.Append(LIBS = Split(dep.libs))
     
