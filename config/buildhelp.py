@@ -1,8 +1,10 @@
 from dependency   import Dependency, VALID_FIELDS
 from ConfigParser import ConfigParser, NoOptionError
-from SCons.Util   import Split
+from SCons.Script import Split, Glob, Copy, File, Dir
 from sys import exit
-from SCons import Environment
+from platform import system
+from subprocess import check_call
+import os
 
 def read_dependencies(filename):
     cparse = ConfigParser()
@@ -80,6 +82,47 @@ def update_and_check_env(conf, dependencies):
         if dep.lib_path:
             conf.env.Append(LIBPATH = [dep.lib_path])
             conf.env.Append(RPATH   = [dep.lib_path])
+            if conf.env["SYSTEM"] == "Darwin":
+                conf.env.Append(LINKFLAGS = "-rpath {0}".format(dep.lib_path))
         if check_dependency(conf, dep) and dep.libs:
             conf.env.Append(LIBS = Split(dep.libs))
     
+def create_gsl_cpy_commands(dependencies, copy_folder):
+    '''
+    Copy all the libs, fix the dylibs, and update the 
+    dependency path to the copy
+    '''
+    if system() == "Darwin" and dependencies["gsl"].lib_path:
+        lib_path = dependencies["gsl"].lib_path
+        commands = []
+
+        for lib in Glob(os.path.join(lib_path, "*")):
+            new_path = os.path.join(copy_folder, 
+                                    os.path.basename(lib.rstr()))
+            action = [Copy("$TARGET", "$SOURCE")]
+            
+            if "dylib" in lib.rstr():
+                action += [fix_dylib_for_darwin]
+
+            kw = {
+                'target' : '{0}'.format(new_path),
+                'source' : '{0}'.format(lib),
+                'action' : action
+                }
+            commands.append(kw)
+
+        dependencies["gsl"].lib_path = Dir(copy_folder).abspath
+        return commands
+
+    else:
+        return []
+
+def fix_dylib_for_darwin(target, source, env):
+    '''
+    Fix the the install_names for darwin for all dylibs in 
+    dir dirname/ (here they are set to the abspath)
+    '''
+    for t in target:
+        abspath = File(t).abspath
+        check_call("install_name_tool -id {0} {0}".format(abspath),
+                   shell = True)

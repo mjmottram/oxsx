@@ -25,6 +25,9 @@ class ROOTNtuple : public DataSet{
     void DropBaskets();
     
  private:
+    ROOTNtuple(const ROOTNtuple&);
+    ROOTNtuple operator=(const ROOTNtuple&);
+
     unsigned fNEntries;
     TFile*   fROOTFile;
     TNtuple* fNtuple;

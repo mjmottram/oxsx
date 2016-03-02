@@ -1,11 +1,14 @@
 #!/bin/python
 # SConscript responsible for setting up the build environment using the dependencies
 import buildhelp
+import platform
 import os
 
 env = Environment(CXXFLAGS = "-O2")
 if env.GetOption('clean'):
     Return('env')
+
+env["SYSTEM"] = platform.system()
 
 conf = Configure(env, log_file = "/dev/null")   
 # sanity check      
@@ -17,7 +20,13 @@ dependencies = buildhelp.read_dependencies("dependencies.ini")
 # now overwrite any options from custom build
 if FindFile("userconfig.ini", "."):
     buildhelp.parse_user_config("userconfig.ini", dependencies)        
-    
+
+# for darwin, fix the install paths for a copy of gsl libs,
+# on linux just leave it alone. 
+gsl_cpys = [Command(**kw) for kw in buildhelp.create_gsl_cpy_commands(dependencies, "#/gsl")]
+
+conf.env.Default(gsl_cpys)
+
 # update the environment, checking along the way
 buildhelp.update_and_check_env(conf, dependencies)
 env = conf.Finish()
