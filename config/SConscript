@@ -23,7 +23,7 @@ if FindFile("userconfig.ini", "."):
 
 # for darwin, fix the install paths for a copy of gsl libs,
 # on linux just leave it alone. 
-gsl_cpys = [Command(**kw) for kw in buildhelp.create_gsl_cpy_commands(dependencies, "#/gsl")]
+gsl_cpys = [Command(**kw) for kw in buildhelp.create_gsl_cpy_commands(conf, dependencies, "#/gsl")]
 
 conf.env.Default(gsl_cpys)
 

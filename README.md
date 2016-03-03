@@ -29,7 +29,9 @@ Follow the installation instructions for each of the above using either the defa
 
 <h3> Compiling Your Own Scripts</h3>
 
-scons auto-generates a script that compiles and links your c++ against the source code and dependencies just run ```./examples/compile.sh <your cpp file>``` to produce an executible of the same name
+scons auto-generates a script that compiles and links your c++ against the source code and dependencies just run ```. <oxsx root>/bin/compile.sh <your cpp file>``` to produce an executible of the same name
+
+Look in `<oxsx root>/examples` for help getting started
 
 
 

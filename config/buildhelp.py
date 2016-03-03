@@ -1,7 +1,6 @@
 from dependency   import Dependency, VALID_FIELDS
 from ConfigParser import ConfigParser, NoOptionError
-from SCons.Script import Split, Glob, Copy, File, Dir
-from sys import exit
+from SCons.Script import Split, Glob, Copy, File, Dir, Exit
 from platform import system
 from subprocess import check_call
 import os
@@ -33,7 +32,7 @@ def check_dependency(conf, dependency):
             exists = False
             print('!! Cannot locate header {0} ...'.format(header))
             if dependency.core:
-                exit(0)
+                Exit(0)
                 
     # check libs
     for lib in Split(dependency.libs):
@@ -41,7 +40,7 @@ def check_dependency(conf, dependency):
             exists = False
             print('!! Cannot locate library {0}'.format(lib))
             if dependency.core:
-                exit(0)
+                Exit(0)
 
     return exists
 
@@ -49,7 +48,7 @@ def check_dependency(conf, dependency):
 def sanity_checks(conf):
     if not conf.CheckCXX():
         print('!! C++ compiler is not available...')
-        exit(0)
+        Exit(0)
 
 
 def parse_user_config(filename, dependencies):
@@ -61,7 +60,7 @@ def parse_user_config(filename, dependencies):
     for dep_name in cparse.sections():
         if not dep_name in dependencies.keys():
             print('!! user_config specifies unknown dependency "{0}"'.format(dep_name))
-            exit(0)
+            Exit(0)
         
         # loop over options for that dependencies
         for opt in cparse.options(dep_name):
@@ -87,12 +86,13 @@ def update_and_check_env(conf, dependencies):
         if check_dependency(conf, dep) and dep.libs:
             conf.env.Append(LIBS = Split(dep.libs))
     
-def create_gsl_cpy_commands(dependencies, copy_folder):
+def create_gsl_cpy_commands(conf, dependencies, copy_folder):
     '''
-    Copy all the libs, fix the dylibs, and update the 
-    dependency path to the copy
+    Create os dependent commands. On darwin: copy all gsl libs, fix
+    the install names for dylibs using install_name_tool, and 
+    replace lib path with the patched version. On linux: do nothing
     '''
-    if system() == "Darwin" and dependencies["gsl"].lib_path:
+    if conf.env["SYSTEM"] == "Darwin" and dependencies["gsl"].lib_path:
         lib_path = dependencies["gsl"].lib_path
         commands = []
 
@@ -119,8 +119,8 @@ def create_gsl_cpy_commands(dependencies, copy_folder):
 
 def fix_dylib_for_darwin(target, source, env):
     '''
-    Fix the the install_names for darwin for all dylibs in 
-    dir dirname/ (here they are set to the abspath)
+    Fix the the install_names for darwin for all dylibs in target
+    (here they are set to the abspath of the library)
     '''
     for t in target:
         abspath = File(t).abspath
