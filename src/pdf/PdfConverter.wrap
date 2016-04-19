@@ -1,0 +1,3 @@
+class_<PdfConverter>("PdfConverter", init<>())
+.def("to_binned_pdf", &PdfConverter::ToBinnedPdf)
+.staticmethod("to_binned_pdf");

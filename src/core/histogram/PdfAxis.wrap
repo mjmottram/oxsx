@@ -1,0 +1,2 @@
+class_<PdfAxis>("PdfAxis", init<std::string, double, double, size_t, std::string>());
+

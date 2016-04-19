@@ -1,0 +1,6 @@
+class_<Gaussian, bases<IntegrablePdf> >("Gaussian", init<int>())
+// To overload would require casting the vector, awkward
+// Maybe still pythonic to just force users to use single element lists
+// http://stackoverflow.com/questions/8140155/boost-python-confused-about-similar-constructor
+.def(init< std::vector<double>, std::vector<double> >())
+.def("get_mean", &Gaussian::GetMean);

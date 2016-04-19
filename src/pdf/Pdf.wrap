@@ -1,0 +1,6 @@
+// noncopyable appears necessary when a class includes virtual methods
+// (or at least when pure virtual methods exist)
+class_<Pdf, boost::noncopyable>("Pdf", no_init)
+.def("get_n_dims", &Pdf::GetNDims)
+.def("set_data_rep", &Pdf::SetDataRep)
+.def("get_data_rep", &Pdf::GetDataRep);

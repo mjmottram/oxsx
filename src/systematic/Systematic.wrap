@@ -1,0 +1,4 @@
+class_<Systematic>("Systematic", init<>())
+.def("set_data_rep", &Systematic::SetDataRep)
+.def("set_pdf_data_rep", &Systematic::SetPdfDataRep)
+.def("__call__", &Systematic::operator()); // not sure why the brackets are needed
