@@ -1,0 +1,2 @@
+  class_<DataRepresentation>("DataRepresentation", init<>())
+    .def(init< std::vector<size_t> >());

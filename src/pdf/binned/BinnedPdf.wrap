@@ -1,0 +1,4 @@
+class_<BinnedPdf, bases<Pdf> >("BinnedPdf", no_init)
+.def("get_n_bins", &BinnedPdf::GetNBins)
+.def("get_bin_content", &BinnedPdf::GetBinContent)
+.def("get_bin_contents", &BinnedPdf::GetBinContents);

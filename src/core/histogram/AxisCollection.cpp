@@ -217,3 +217,4 @@ AxisCollection::GetBinWidth(size_t bin_, size_t dim_) const{
     
     return fAxes.at(dim_).GetBinWidth(UnflattenIndex(bin_, dim_));
 }
+

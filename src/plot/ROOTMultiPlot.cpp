@@ -22,6 +22,7 @@ ROOTMultiPlot::AddPdf(const BinnedPdf& pdf_, const std::string name_){
   rootHist.SetDirectory(0);
   rootHist.GetXaxis()->SetTitle(pdf_.GetAxes().GetAxis(0).GetLatexName().c_str());
   AddPdf(rootHist, name_);
+  
 }
 
 void 
@@ -77,7 +78,10 @@ ROOTMultiPlot::Construct(){
   for(size_t i = 0; i < fNames.size(); i++){
     fLegend.AddEntry(&fHists.at(i), fNames.at(i).c_str());
     fHists[i].SetLineColor(fColorScheme[i %fNcolors]);
-    fHists.at(i).Draw("same");
+    if(i!=0)
+      fHists.at(i).Draw("same");
+    else
+      fHists.at(i).Draw();
 
   }
   if(fDrawLegend)

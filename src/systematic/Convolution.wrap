@@ -1,0 +1,4 @@
+class_<Convolution, bases<Systematic> >("Convolution", init<>())
+.def("set_pdf", &Convolution::SetPdf)
+.def("set_axes", &Convolution::SetAxes)
+.def("construct", &Convolution::Construct);

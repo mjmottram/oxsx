@@ -5,7 +5,6 @@
 #ifndef __PDF_CONVERTER__
 #define __PDF_CONVERTER__
 
-
 class BinnedPdf;
 class IntegrableFunction;
 class AxisCollection;
@@ -19,5 +18,6 @@ class PdfConverter{
     static TH1D      ToTH1D(const BinnedPdf&, const bool widthCorrect_ = false);
     static TH1D      ToTH1D(const Histogram&, const bool widthCorrect_ = false);
 	static TH2D      ToTH2D(const Histogram&, const bool widthCorrect_ = false);
+
 };
 #endif

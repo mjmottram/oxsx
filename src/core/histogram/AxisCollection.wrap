@@ -1,0 +1,2 @@
+class_<AxisCollection>("AxisCollection")
+.def("add_axis", &AxisCollection::AddAxis);
