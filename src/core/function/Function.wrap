@@ -1,5 +1,2 @@
 // Pure virtual class
-class_<Function, boost::noncopyable, bases<FitComponent> >("Function", no_init)
-//.def("clone", pure_virtual(&Function::Clone))
-//.def("__call__", pure_virtual(&Function::operator()))
-.def("get_n_dims", pure_virtual(&Function::GetNDims));
+class_<Function, boost::noncopyable, bases<FitComponent> >("Function", no_init);

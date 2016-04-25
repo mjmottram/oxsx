@@ -1,4 +1,2 @@
 // Pure virtual class
 class_<Cut, boost::noncopyable>("Cut", no_init);
-//.def("passes_cut", pure_virtual(&Cut::PassesCut));
-//.def("clone", pure_virtual(&Cut::Clone));

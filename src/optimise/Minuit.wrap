@@ -17,11 +17,3 @@ class_<Minuit, bases<Optimiser> >("Minuit", init<>())
 .def("set_maximising", &Minuit::SetMaximising)
 .def("get_maximising", &Minuit::GetMaximising)
 .def("get_fit_result", &Minuit::GetFitResult);
-
-
-
-
-
-
-
-

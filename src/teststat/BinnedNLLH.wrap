@@ -17,7 +17,7 @@ class_<BinnedNLLH, bases<TestStatistic> >("BinnedNLLH", init<>())
 .def("set_data_pdf", &BinnedNLLH::SetDataPdf)
 .def("get_data_pdf", &BinnedNLLH::GetDataPdf)
 .def("set_data_set", &BinnedNLLH::SetDataSet)
-//.def("get_data_set", &BinnedNLLH::GetDataSet) // FIXME unsure of implementation
+.def("get_data_set", &BinnedNLLH::GetDataSet, return_value_policy<manage_new_object>())
 .def("set_buffer", &BinnedNLLH::SetBuffer)
 .def("get_buffer", &BinnedNLLH::GetBuffer)
 .def("set_buffer_as_overflow", &BinnedNLLH::SetBufferAsOverflow)

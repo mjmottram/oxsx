@@ -1,3 +1,4 @@
+// Unsure of conversion here
 //Pdf* PdfPointer(const Pdf& p) = (return &p;);
 
 class_<CompositePdf, bases<Pdf> >("CompositePdf", init<const Pdf*, const Pdf*>())

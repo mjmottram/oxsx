@@ -19,6 +19,3 @@ class_<MetropolisHastings, bases<Optimiser> >("MetropolisHastings", init<>())
 .def("set_test_stat_logged", &MetropolisHastings::SetTestStatLogged)
 .def("set_initial_trial", &MetropolisHastings::SetInitialTrial)
 .def("get_initial_trial", &MetropolisHastings::GetInitialTrial);
-
-
-

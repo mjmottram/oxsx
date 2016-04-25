@@ -67,11 +67,3 @@ DataRepresentation::GetRelativeIndices(const DataRepresentation& otherRep_) cons
     
     return relativeIndices;
 } 
-
-
-/*
-#include <boost/python.hpp>
-void export_data_rep() {
-  boost::python::class_<DataRepresentation>("DataRepresentation");
-}
-*/

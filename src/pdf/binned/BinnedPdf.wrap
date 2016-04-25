@@ -1,5 +1,10 @@
-//BinnedPdf (BinnedPdf::*marginalise_vector)(const std::vector<size_t>&) = &BinnedPdf::Marginalise;
-//BinnedPdf (BinnedPdf::*marginalise_int)(size_t) &BinnedPdf::Marginalise;
+BinnedPdf (BinnedPdf::*binned_pdf_marginalise_vector)(const std::vector<size_t>&) const = &BinnedPdf::Marginalise;
+BinnedPdf (BinnedPdf::*binned_pdf_marginalise_int)(size_t) const = &BinnedPdf::Marginalise;
+void (BinnedPdf::*binned_pdf_fill_vector)(const std::vector<double>&, double) = &BinnedPdf::Fill;
+void (BinnedPdf::*binned_pdf_fill_event_data)(const EventData&, double) = &BinnedPdf::Fill;
+void (BinnedPdf::*binned_pdf_fill_value)(double, double) = &BinnedPdf::Fill;
+size_t (BinnedPdf::*binned_pdf_find_bin_vector)(const std::vector<double>&) const = &BinnedPdf::FindBin;
+size_t (BinnedPdf::*binned_pdf_find_bin_event_data)(const EventData&) const = &BinnedPdf::FindBin;
            
 class_<BinnedPdf, bases<Pdf> >("BinnedPdf", init<>())
 .def(init<AxisCollection>())
@@ -9,8 +14,11 @@ class_<BinnedPdf, bases<Pdf> >("BinnedPdf", init<>())
 .def("integral", &BinnedPdf::Integral)
 .def("normalise", &BinnedPdf::Normalise)
 .def("clone", &BinnedPdf::Clone, return_value_policy<manage_new_object>())
-//.def("fill", &BinnedPdf::Fill) // Need to do the overloads here
-//.def("find_bin", &BinnedPdf::FindBin) // FIXME overloaded
+.def("fill_vector", binned_pdf_fill_vector)
+.def("fill_event_data", binned_pdf_fill_event_data)
+.def("fill_value", binned_pdf_fill_value)
+.def("find_bin_vector", binned_pdf_find_bin_vector)
+.def("find_bin_event_data", binned_pdf_find_bin_event_data)
 .def("unpack_indices", &BinnedPdf::UnpackIndices)
 .def("flatten_indices", &BinnedPdf::FlattenIndices)
 .def("get_axes", &BinnedPdf::GetAxes, return_internal_reference<>())
@@ -27,7 +35,7 @@ class_<BinnedPdf, bases<Pdf> >("BinnedPdf", init<>())
 .def("set_bin_content", &BinnedPdf::SetBinContent)
 .def("empty", &BinnedPdf::Empty)
 .def("get_n_dims", &BinnedPdf::GetNDims)
- //.def("marginalise_vector", marginalise_vector) // FIXME
- //.def("marginalise_int", marginalise_int)
+.def("marginalise_vector", binned_pdf_marginalise_vector)
+.def("marginalise_int", binned_pdf_marginalise_int)
 .def("set_data_rep", &BinnedPdf::SetDataRep)
 .def("get_data_rep", &BinnedPdf::GetDataRep);
