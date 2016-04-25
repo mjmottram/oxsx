@@ -3,6 +3,12 @@
 #include <sstream>
 #include <Exceptions.h>
 
+ChiSquare::~ChiSquare(){
+  if(fDataSet)
+    delete fDataSet;
+}
+
+
 double
 ChiSquare::Evaluate(){
     // the first time this is called, bin data into a pdf

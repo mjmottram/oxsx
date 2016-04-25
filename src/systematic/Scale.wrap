@@ -1,0 +1,4 @@
+class_<Scale, bases<Systematic> >("Scale", init<>())
+.def("set_scale_factor", &Scale::SetScaleFactor)
+.def("get_scale_factor", &Scale::GetScaleFactor)
+.def("construct", &Scale::Construct);

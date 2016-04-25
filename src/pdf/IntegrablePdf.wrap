@@ -1,0 +1,1 @@
+class_<IntegrablePdf, boost::noncopyable, bases<Pdf> >("IntegrablePdf", no_init);

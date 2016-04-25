@@ -15,6 +15,7 @@ class DataSet;
 class ChiSquare : public TestStatistic{
  public:
     ChiSquare() : fCalculatedDataPdf(false) {}
+    ~ChiSquare();
 
     void SetDataSet(DataSet* d);
     DataSet* GetDataSet();

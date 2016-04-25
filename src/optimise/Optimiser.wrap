@@ -1,0 +1,2 @@
+// Pure virtual class
+class_<Optimiser, boost::noncopyable>("Optimiser", no_init);

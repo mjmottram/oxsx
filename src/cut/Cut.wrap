@@ -1,0 +1,2 @@
+// Pure virtual class
+class_<Cut, boost::noncopyable>("Cut", no_init);

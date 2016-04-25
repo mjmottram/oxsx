@@ -1,0 +1,9 @@
+// Pure virtual class
+class_<FitComponent, boost::noncopyable>("FitComponent", no_init)
+.def("make_fittable", pure_virtual(&FitComponent::MakeFittable))
+.def("get_parameter_names", pure_virtual(&FitComponent::GetParameterNames))
+.def("get_parameters", pure_virtual(&FitComponent::GetParameters))
+.def("get_parameter_count", pure_virtual(&FitComponent::GetParameterCount))
+.def("set_parameters", pure_virtual(&FitComponent::SetParameters));
+
+

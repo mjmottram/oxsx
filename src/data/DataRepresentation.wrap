@@ -1,0 +1,12 @@
+class_<DataRepresentation>("DataRepresentation", init<>())
+.def(init< std::vector<size_t> >())
+.def(init< size_t >())
+.def(init< const DataRepresentation >())
+.def("get_indices", &DataRepresentation::GetIndices)
+.def("set_indices", &DataRepresentation::SetIndices)
+.def("get_name", &DataRepresentation::GetName)
+.def("set_name", &DataRepresentation::SetName)
+.def("get_index", &DataRepresentation::GetIndex)
+.def("get_n_observables", &DataRepresentation::GetNObservables)
+.def("get_data_index_pos", &DataRepresentation::GetDataIndexPos)
+.def("get_relative_indices", &DataRepresentation::GetRelativeIndices);

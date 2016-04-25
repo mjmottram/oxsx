@@ -5,7 +5,6 @@
 #ifndef __PDF_CONVERTER__
 #define __PDF_CONVERTER__
 
-
 class BinnedPdf;
 class IntegrableFunction;
 class AxisCollection;

@@ -1,0 +1,33 @@
+// New function names need to be unique.
+void (Histogram::*histogram_fill_vector)(const std::vector<double>&, double) = &Histogram::Fill;
+void (Histogram::*histogram_fill_double)(double, double) = &Histogram::Fill;
+Histogram (Histogram::*histogram_marginalise_vector)(const std::vector<size_t>&) const = &Histogram::Marginalise;
+Histogram (Histogram::*histogram_marginalise_int)(size_t) const = &Histogram::Marginalise;
+
+class_<Histogram>("Histogram", init<>())
+.def(init<AxisCollection>())
+.def("__call__", &Histogram::operator())
+.def("integral", &Histogram::Integral)
+.def("normalise", &Histogram::Normalise)
+.def("fill_vector", histogram_fill_vector)
+.def("fill_double", histogram_fill_double)
+.def("find_bin", &Histogram::FindBin)
+.def("unpack_indices", &Histogram::UnpackIndices)
+.def("flatten_indices", &Histogram::FlattenIndices)
+.def("get_axes", &Histogram::GetAxes, return_internal_reference<>())
+.def("set_axes", &Histogram::SetAxes)
+.def("get_bin_contents", &Histogram::GetBinContents)
+.def("set_bin_contents", &Histogram::SetBinContents)
+.def("means", &Histogram::Means)
+.def("variances", &Histogram::Variances)
+.def("get_bin_content", &Histogram::GetBinContent)
+.def("get_n_bins", &Histogram::GetNBins)
+.def("get_n_dims", &Histogram::GetNDims)
+.def("add_bin_content", &Histogram::AddBinContent)
+.def("set_bin_content", &Histogram::SetBinContent)
+.def("empty", &Histogram::Empty)
+.def("marginalise_vector", histogram_marginalise_vector)
+.def("marginalise_int", histogram_marginalise_int)
+.def("get_bin_low_edge", &Histogram::GetBinLowEdge)
+.def("get_bin_high_edge", &Histogram::GetBinHighEdge)
+.def("get_bin_centre", &Histogram::GetBinCentre);

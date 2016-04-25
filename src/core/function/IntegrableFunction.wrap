@@ -1,0 +1,1 @@
+class_<IntegrableFunction, boost::noncopyable, bases<Function> >("IntegrableFunction", no_init);

@@ -1,0 +1,4 @@
+class_<BoolCut, bases<Cut> >("BoolCut", init<size_t, double>())
+.def(init<BoolCut>())
+.def("passes_cut", &BoolCut::PassesCut)
+.def("clone", &BoolCut::Clone, return_value_policy<manage_new_object>());

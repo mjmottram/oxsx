@@ -1,0 +1,9 @@
+class_<ChiSquare, bases<TestStatistic> >("ChiSquare", init<>())
+.def("set_data_set", &ChiSquare::SetDataSet)
+.def("get_data_set", &ChiSquare::GetDataSet, return_value_policy<reference_existing_object>()) // returns pointer to member variable
+.def("evaluate", &ChiSquare::Evaluate)
+.def("register_fit_components", &ChiSquare::RegisterFitComponents)
+.def("get_parameter_count", &ChiSquare::GetParameterCount)
+.def("set_parameters", &ChiSquare::SetParameters)
+.def("get_parameters", &ChiSquare::GetParameters)
+.def("get_parameter_names", &ChiSquare::GetParameterNames);

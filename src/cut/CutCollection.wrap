@@ -1,0 +1,5 @@
+class_<CutCollection>("CutCollection", init<>())
+.def(init<CutCollection>())
+// Don't export = operator; python copy will create a reference
+.def("passes_cuts", &CutCollection::PassesCuts)
+.def("add_cut", &CutCollection::AddCut);

@@ -1,0 +1,6 @@
+class_<SpectralFitPdf, bases<BinnedPdf, FitComponent> >("SpectralFitPdf", init<AxisCollection>())
+.def("make_fittable", &SpectralFitPdf::MakeFittable)
+.def("get_parameter_names", &SpectralFitPdf::GetParameterNames)
+.def("get_parameters", &SpectralFitPdf::GetParameters)
+.def("get_parameter_count", &SpectralFitPdf::GetParameterCount)
+.def("set_parameters", &SpectralFitPdf::SetParameters);

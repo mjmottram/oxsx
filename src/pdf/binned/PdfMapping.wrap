@@ -1,0 +1,11 @@
+class_<PdfMapping>("PdfMapping", init<>())
+.def("__call__", &PdfMapping::operator())
+.def("set_response", &PdfMapping::SetResponse)
+.def("set_component", &PdfMapping::SetComponent)
+.def("get_component", &PdfMapping::GetComponent)
+.def("set_components", &PdfMapping::SetComponents)
+//.def(self * self) // FIXME
+.def("get_axes", &PdfMapping::GetAxes, return_internal_reference<>())
+.def("set_axes", &PdfMapping::SetAxes)
+.def("get_n_bins", &PdfMapping::GetNBins)
+.def("set_zeros", &PdfMapping::SetZeros);

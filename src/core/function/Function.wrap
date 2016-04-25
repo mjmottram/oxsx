@@ -1,0 +1,2 @@
+// Pure virtual class
+class_<Function, boost::noncopyable, bases<FitComponent> >("Function", no_init);

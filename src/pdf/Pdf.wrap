@@ -1,0 +1,3 @@
+// noncopyable appears necessary when a class includes virtual methods
+// (or at least when pure virtual methods exist)
+class_<Pdf, boost::noncopyable>("Pdf", no_init);
