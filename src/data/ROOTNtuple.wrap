@@ -1,4 +1,4 @@
-class_<ROOTNtuple>("ROOTNtuple", init<std::string, std::string>())
+class_<ROOTNtuple, boost::noncopyable>("ROOTNtuple", init<std::string, std::string>())
 .def("get_entry", &ROOTNtuple::GetEntry)
 .def("get_n_entries", &ROOTNtuple::GetNEntries)
 .def("get_n_observables", &ROOTNtuple::GetNObservables)
