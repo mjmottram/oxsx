@@ -102,3 +102,12 @@ PdfConverter::ToTH2D(const Histogram& histo_, const bool widthCorrect_){
 	}
 	return rtHist;
 }
+
+TH2D
+PdfConverter::ToTH2D(const BinnedPdf& pdf_, const bool widthCorrect_){
+    if(pdf_.GetNDims() != 2)
+		throw DimensionError("Only a 2D pdf can be represented by a TH2D");
+	
+	TH2D rtHist = PdfConverter::ToTH2D(pdf_.GetHistogram());
+	return rtHist;
+}

@@ -12,14 +12,16 @@ PdfFiller
 
 const std::string filename = "";
 const std::string treename = "";
-const std::string obs1 = "";
-const std::string obs2 = "";
+const std::string obs1 = "obs1name";
+const std::string obs2 = "obs2name"; 
+// this is the name inside the dataset, e.g. for a ROOTNtuple its the branch 
+// name.
 
 int main(){
     // Open up the data file
     ROOTNtuple nt(filename, treename);
 
-    // Create a 2D binned pdf
+    // Create a 2D binned pdf, axes named obs1, obs2
     AxisCollection axes;
     axes.AddAxis(PdfAxis("obs1", 0, 10, 10));
     axes.AddAxis(PdfAxis("obs2", 0, 10, 10));

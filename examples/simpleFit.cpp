@@ -3,7 +3,15 @@
 #include <ROOTNtuple.h>        
 #include <BinnedNLLH.h>        
 #include <GridSearch.h>        
-         
+
+const std::string bgMCfile    = "";
+const std::string sigMCfile   = "";
+const std::string bgTreeName  = "";
+const std::string sigTreeName = "";
+
+const std::string dataFile = "";
+const std::string dataTreeName = "";
+
 int main(){        
     ////////////////////        
     // 1. Set Up PDFs //        
@@ -11,7 +19,7 @@ int main(){
          
     // Set up binning        
     AxisCollection axes;        
-    axes.AddAxis(PdfAxis("energy", 2, 3, 10, "Energy"));               
+    axes.AddAxis(PdfAxis("energy", 2, 3, 10, "Energy"));
          
     // Only interested in first bit of data ntuple        
     DataRepresentation dataRep(0);        
@@ -26,14 +34,14 @@ int main(){
     // 2. Fill with data and normalise //        
     /////////////////////////////////////        
          
-    ROOTNtuple bgMC("filename.root", "treename");        
-    ROOTNtuple signalMC("filename.root", "treename");        
+    ROOTNtuple bgMC(bgMCfile, bgTreeName);
+    ROOTNtuple signalMC(sigMCfile, sigTreeName);
          
-    for(size_t i = 0; i < 10; i++){        
+    for(size_t i = 0; i < bgMC.GetNEntries(); i++){        
         bgPdf.Fill(bgMC.GetEntry(i));        
     }        
           
-    for(size_t i = 0; i < 10; i++){        
+    for(size_t i = 0; i < signalMC.GetNEntries(); i++){        
         signalPdf.Fill(signalMC.GetEntry(i));        
     }        
              
@@ -46,38 +54,36 @@ int main(){
     ////////////////////////////        
     // 3. Set Up LH function  //        
     ////////////////////////////        
-         
+    ROOTNtuple dataNt(dataFile, dataTreeName);
     BinnedNLLH lhFunction;        
-    lhFunction.SetDataSet(&signalMC); // initialise withe the data set        
+    lhFunction.SetDataSet(&dataNt); // initialise withe the data set
     lhFunction.AddPdf(bgPdf);        
     lhFunction.AddPdf(signalPdf);        
-    
-         
+        
     std::cout << "Built LH function " << std::endl;        
          
     // Set up the optimisation        
-    GridSearch gSearch(&lhFunction);        
+    GridSearch gSearch;        
              
-    std::vector<double> minima(2, 0);        
-    std::vector<double> maxima(2, 100);        
-    std::vector<double> stepsizes(2, 1);        
+    std::vector<double> minima;
+    minima.push_back(0);
+    minima.push_back(0);
+    std::vector<double> maxima;
+    maxima.push_back(1000);
+    maxima.push_back(1000);
+    std::vector<double> stepsizes(2, 1);
          
     gSearch.SetMaxima(maxima);        
     gSearch.SetMinima(minima);        
     gSearch.SetStepSizes(stepsizes);        
-    
-         
+             
     ////////////        
     // 4. Fit //        
     ////////////        
-    gSearch.Optimise();        
+    FitResult result = gSearch.Optimise(&lhFunction);
          
-    std::vector<double> fit = gSearch.GetFitResult().GetBestFit();        
-             
-    std::cout << "Best Fit: " << std::endl;        
-    for(size_t i = 0; i < fit.size(); i++)        
-        std::cout << fit.at(i) << "\t";        
-    std::cout << std::endl;        
-    
+    std::vector<double> fit = result.GetBestFit();        
+    result.Print();
+    result.SaveAs("simpleFit_result.txt");
     return 0;        
 }
