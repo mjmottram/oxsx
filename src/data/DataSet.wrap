@@ -1,0 +1,2 @@
+// Pure virtual class
+class_<DataSet, boost::noncopyable>("DataSet", no_init);

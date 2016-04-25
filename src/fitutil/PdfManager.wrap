@@ -1,0 +1,13 @@
+class_<PdfManager, bases<FitComponent> >("PdfManager", init<>())
+.def("add_pdf", &PdfManager::AddPdf)
+.def("add_pdfs", &PdfManager::AddPdfs) // another vector to template
+.def("get_normalisations", &PdfManager::GetNormalisations, return_internal_reference<>())
+.def("set_normalisations", &PdfManager::SetNormalisations)
+.def("probability", &PdfManager::Probability)
+.def("get_n_pdfs", &PdfManager::GetNPdfs)
+.def("get_n_dims", &PdfManager::GetNDims)
+.def("make_fittable", &PdfManager::MakeFittable)
+.def("get_parameter_names", &PdfManager::GetParameterNames)
+.def("get_parameters", &PdfManager::GetParameters)
+.def("get_parameter_count", &PdfManager::GetParameterCount)
+.def("set_parameters", &PdfManager::SetParameters);

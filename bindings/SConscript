@@ -11,7 +11,7 @@ buildenv.Append(LIBS = 'oxsx')
 buildenv.Append(LINKFLAGS = '-rpath /Users/matthewmottram/snoPlus/software/snoing-install/root-5.34.30/lib')
 buildenv.Append(CPPPATH = '#/src')
 shlib = buildenv.SharedLibrary('oxsx', ['oxsx_base.cpp'],
-                               SHLIBSUFFIX='.so', SHLIBPREFIX='#/lib')
+                               SHLIBSUFFIX='.so', SHLIBPREFIX='')
 
 # Install to pythonpath
 install_dir = get_python_lib()

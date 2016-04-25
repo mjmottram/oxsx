@@ -1,4 +1,7 @@
-class_<Systematic>("Systematic", init<>())
+class_<Systematic, boost::noncopyable, bases<FitComponent> >("Systematic", no_init)
+.def("__call__", &Systematic::operator()) // not sure why the brackets are needed
+.def("set_response", &Systematic::SetResponse)
 .def("set_data_rep", &Systematic::SetDataRep)
+.def("get_data_rep", &Systematic::GetDataRep)
 .def("set_pdf_data_rep", &Systematic::SetPdfDataRep)
-.def("__call__", &Systematic::operator()); // not sure why the brackets are needed
+.def("get_pdf_data_rep", &Systematic::GetPdfDataRep);

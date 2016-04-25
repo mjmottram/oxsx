@@ -1,0 +1,5 @@
+class_<IO>("IO", no_init)
+.def("save_data_set", &IO::SaveDataSet).staticmethod("save_data_set")
+.def("load_data_set", &IO::LoadDataSet).staticmethod("load_data_set")
+.def("save_histogram", &IO::SaveHistogram).staticmethod("save_histogram");
+//.def("load_histogram", &IO::LoadHistogram).staticmethod("load_histogram"); // not implemented

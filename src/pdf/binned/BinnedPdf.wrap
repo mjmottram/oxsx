@@ -1,4 +1,33 @@
-class_<BinnedPdf, bases<Pdf> >("BinnedPdf", no_init)
-.def("get_n_bins", &BinnedPdf::GetNBins)
+//BinnedPdf (BinnedPdf::*marginalise_vector)(const std::vector<size_t>&) = &BinnedPdf::Marginalise;
+//BinnedPdf (BinnedPdf::*marginalise_int)(size_t) &BinnedPdf::Marginalise;
+           
+class_<BinnedPdf, bases<Pdf> >("BinnedPdf", init<>())
+.def(init<AxisCollection>())
+.def(init<Histogram>())
+.def("__call__", &BinnedPdf::operator())
+.def("probability", &BinnedPdf::Probability)
+.def("integral", &BinnedPdf::Integral)
+.def("normalise", &BinnedPdf::Normalise)
+.def("clone", &BinnedPdf::Clone, return_value_policy<manage_new_object>())
+//.def("fill", &BinnedPdf::Fill) // Need to do the overloads here
+//.def("find_bin", &BinnedPdf::FindBin) // FIXME overloaded
+.def("unpack_indices", &BinnedPdf::UnpackIndices)
+.def("flatten_indices", &BinnedPdf::FlattenIndices)
+.def("get_axes", &BinnedPdf::GetAxes, return_internal_reference<>())
+.def("set_axes", &BinnedPdf::SetAxes)
+.def("get_bin_contents", &BinnedPdf::GetBinContents)
+.def("set_bin_contents", &BinnedPdf::SetBinContents)
+.def("means", &BinnedPdf::Means)
+.def("variances", &BinnedPdf::Variances)
+.def("get_histogram", &BinnedPdf::GetHistogram, return_internal_reference<>())
+.def("set_histogram", &BinnedPdf::SetHistogram)
 .def("get_bin_content", &BinnedPdf::GetBinContent)
-.def("get_bin_contents", &BinnedPdf::GetBinContents);
+.def("get_n_bins", &BinnedPdf::GetNBins)
+.def("add_bin_content", &BinnedPdf::AddBinContent)
+.def("set_bin_content", &BinnedPdf::SetBinContent)
+.def("empty", &BinnedPdf::Empty)
+.def("get_n_dims", &BinnedPdf::GetNDims)
+ //.def("marginalise_vector", marginalise_vector) // FIXME
+ //.def("marginalise_int", marginalise_int)
+.def("set_data_rep", &BinnedPdf::SetDataRep)
+.def("get_data_rep", &BinnedPdf::GetDataRep);

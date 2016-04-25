@@ -1,4 +1,5 @@
 #include <Heaviside.h>
+#include <Function.h>
 #include <Exceptions.h>
 #include <iostream>
 

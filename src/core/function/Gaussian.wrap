@@ -1,0 +1,23 @@
+//(Gaussian::*integral_vector)(const std::vector<double>&, const std::vector<double>&) = &Gaussian::Integral;
+//(Gaussian::*integral_all)() = &Gaussian::Integral;
+
+class_<Gaussian, bases<IntegrableFunction> >("Gaussian", init<int>())
+.def(init<double, double>())
+.def(init<std::vector<double>, std::vector<double> >())
+//.def("clone", &Gaussian::Clone) // FIXME no idea how this should work!
+.def("__call__", &Gaussian::operator())
+.def("cdf", &Gaussian::Cdf)
+//.def("integral_vector", integral_vector)
+//.def("integral_all", integral_all)
+//.def("integral", &Gaussian::Integral) // FIXME
+.def("set_means_std_devs", &Gaussian::SetMeansStdDevs)
+.def("get_mean", &Gaussian::GetMean)
+.def("get_st_dev", &Gaussian::GetStDev)
+.def("get_means", &Gaussian::GetMeans)
+.def("get_std_devs", &Gaussian::GetStdDevs)
+.def("get_cdf_cut_off", &Gaussian::GetCdfCutOff)
+.def("set_cdf_cut_off", &Gaussian::SetCdfCutOff)
+.def("get_n_dims", &Gaussian::GetNDims)
+.def("make_fittable", &Gaussian::MakeFittable)
+.def("get_parameters", &Gaussian::GetParameters)
+.def("get_parameter_count", &Gaussian::GetParameterCount);

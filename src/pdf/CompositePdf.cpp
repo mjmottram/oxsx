@@ -64,8 +64,8 @@ CompositePdf::Clone() const {
 
 
 CompositePdf
-operator * (const Pdf& pdf1_, const Pdf& pdf2_){
-    return CompositePdf(&pdf1_, &pdf2_);
+CompositePdf::operator * (const Pdf& pdf2_){
+    return CompositePdf(this, &pdf2_);
 }
 
 

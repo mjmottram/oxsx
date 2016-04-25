@@ -25,11 +25,11 @@ class CompositePdf : public Pdf{
     virtual double Integral()  const;
     virtual void   Normalise();
     unsigned GetNDims() const;
+
+    CompositePdf operator * (const Pdf&);
  private:
     
     std::vector<Pdf*> fPdfPtrs;
 };
-
-CompositePdf operator * (const Pdf&, const Pdf&);
 
 #endif

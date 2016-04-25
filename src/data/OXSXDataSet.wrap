@@ -1,0 +1,10 @@
+class_<OXSXDataSet>("OXSXDataSet", init<>())
+.def(init<OXSXDataSet&>()) // not sure how memory management works for copy constructors 
+.def("add_entry", &OXSXDataSet::AddEntry)
+.def("get_entry", &OXSXDataSet::GetEntry)
+.def("get_n_entries", &OXSXDataSet::GetNEntries)
+.def("get_n_observables", &OXSXDataSet::GetNObservables)
+.def("set_observable_names", &OXSXDataSet::SetObservableNames)
+.def("get_observable_names", &OXSXDataSet::GetObservableNames)
+.def("reserve", &OXSXDataSet::Reserve);
+// Ignore operators for now

@@ -1,0 +1,9 @@
+class_<ChiSquare, bases<TestStatistic> >("ChiSquare", init<>())
+//.def("set_data_set", &ChiSquare::SetDataSet) // not yet implemented
+//.def("get_data_set", &ChiSquare::GetDataSet) // not implemented, probably requires memory management handler
+.def("evaluate", &ChiSquare::Evaluate)
+.def("register_fit_components", &ChiSquare::RegisterFitComponents)
+.def("get_parameter_count", &ChiSquare::GetParameterCount)
+.def("set_parameters", &ChiSquare::SetParameters)
+.def("get_parameters", &ChiSquare::GetParameters)
+.def("get_parameter_names", &ChiSquare::GetParameterNames);

@@ -1,0 +1,8 @@
+class_<BinnedPdfShrinker>("BinnedPdfShrinker", init<>())
+.def("shrink_axis", &BinnedPdfShrinker::ShrinkAxis)
+.def("shrink_pdf", &BinnedPdfShrinker::ShrinkPdf)
+.def("set_buffer", &BinnedPdfShrinker::SetBuffer)
+.def("get_buffer", &BinnedPdfShrinker::GetBuffer) // Might need some work for the pair
+.def("get_buffers", &BinnedPdfShrinker::GetBuffers) // Need map:dict conversion
+.def("set_using_overflows", &BinnedPdfShrinker::SetUsingOverflows)
+.def("get_using_overflows", &BinnedPdfShrinker::GetUsingOverflows);

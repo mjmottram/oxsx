@@ -15,10 +15,10 @@ class DataSet;
 class ChiSquare : public TestStatistic{
  public:
     ChiSquare() : fCalculatedDataPdf(false) {}
-    ~ChiSquare();
+    ~ChiSquare() {}; // should delete the dataset member
 
-    void SetDataSet(DataSet* d);
-    DataSet* GetDataSet();
+    //    void SetDataSet(DataSet* d);
+    //    DataSet* GetDataSet();
    
     // Fit Component interface
     double Evaluate();

@@ -1,0 +1,13 @@
+enum_<Heaviside::Sidedness>("sidedness")
+.value("MAXIMUM", Heaviside::MAXIMUM)
+.value("MINIMUM", Heaviside::MINIMUM)
+.value("IGNORE", Heaviside::IGNORE);
+
+class_<Heaviside, bases<Function> >("Heaviside", init<int>())
+.def("add_constraint", &Heaviside::AddConstraint)
+.def("__call__", &Heaviside::operator());
+/*.def("make_fittable", pure_virtual(&Heaviside::MakeFittable))
+.def("get_parameter_names", pure_virtual(&Heaviside::GetParameterNames))
+.def("get_parameters", pure_virtual(&Heaviside::GetParameters))
+.def("get_parameter_count", pure_virtual(&Heaviside::GetParameterCount))
+.def("set_parameters", pure_virtual(&Heaviside::SetParameters));*/

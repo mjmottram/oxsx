@@ -1,0 +1,24 @@
+class_<MetropolisHastings, bases<Optimiser> >("MetropolisHastings", init<>())
+.def("optimise", &MetropolisHastings::Optimise, return_internal_reference<>())
+.def("get_burn_in", &MetropolisHastings::GetBurnIn)
+.def("set_burn_in", &MetropolisHastings::SetBurnIn)
+.def("get_thin_factor", &MetropolisHastings::GetThinFactor)
+.def("set_thin_factor", &MetropolisHastings::SetThinFactor)
+.def("get_max_iter", &MetropolisHastings::GetMaxIter)
+.def("set_max_iter", &MetropolisHastings::SetMaxIter)
+.def("get_rejection_rate", &MetropolisHastings::GetRejectionRate)
+.def("get_maxima", &MetropolisHastings::GetMaxima)
+.def("set_maxima", &MetropolisHastings::SetMaxima)
+.def("get_minima", &MetropolisHastings::GetMinima)
+.def("set_minima", &MetropolisHastings::SetMinima)
+.def("get_sigmas", &MetropolisHastings::GetSigmas, return_internal_reference<>())
+.def("set_sigmas", &MetropolisHastings::SetSigmas)
+.def("get_flip_sign", &MetropolisHastings::GetFlipSign)
+.def("set_flip_sign", &MetropolisHastings::SetFlipSign)
+.def("get_test_stat_logged", &MetropolisHastings::GetTestStatLogged)
+.def("set_test_stat_logged", &MetropolisHastings::SetTestStatLogged)
+.def("set_initial_trial", &MetropolisHastings::SetInitialTrial)
+.def("get_initial_trial", &MetropolisHastings::GetInitialTrial);
+
+
+

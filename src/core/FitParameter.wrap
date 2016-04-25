@@ -1,0 +1,4 @@
+// Pure virtual class
+class_<FitParameter, boost::noncopyable>("FitParameter", no_init)
+.def("get", pure_virtual(&FitParameter::Get))
+.def("set", pure_virtual(&FitParameter::Set));

@@ -1,0 +1,7 @@
+class_<BoxCut>("BoxCut", init<size_t, double, double>())
+.def("clone", &BoxCut::Clone, return_value_policy<manage_new_object>()) // __copy__?
+.def("passes_cut", &BoxCut::PassesCut)
+.def("set_lower_limit", &BoxCut::SetLowerLimit)
+.def("get_lower_limit", &BoxCut::GetLowerLimit)
+.def("set_upper_limit", &BoxCut::SetUpperLimit)
+.def("get_upper_limit", &BoxCut::GetUpperLimit);

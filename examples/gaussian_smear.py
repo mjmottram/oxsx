@@ -20,7 +20,7 @@ if __name__=="__main__":
     gaus_pdf = oxsx.Gaussian([1], [2]) # Must always pass lists
     conv = oxsx.Convolution()
     
-    conv.set_pdf(gaus_pdf)
+    conv.set_function(gaus_pdf)
     conv.set_axes(axes)
 
     smear_rep = oxsx.DataRepresentation([0])
