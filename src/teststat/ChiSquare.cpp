@@ -3,11 +3,6 @@
 #include <sstream>
 #include <Exceptions.h>
 
-ChiSquare::~ChiSquare(){
-  if(fDataSet)
-    delete fDataSet;
-}
-
 
 double
 ChiSquare::Evaluate(){
