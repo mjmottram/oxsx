@@ -43,7 +43,6 @@ GridSearch::Optimise(TestStatistic* testStat_){
     bestFit.resize(testStat_ -> GetParameterCount());
     fMinVal = 0;
 
-
     // Initialise LH space and count the number of grid steps
     unsigned maxSteps = 1;
     std::vector<double> gridCounts;

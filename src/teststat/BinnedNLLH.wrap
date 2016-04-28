@@ -1,3 +1,6 @@
+// This appears to be necessary for the overloaded method within the class
+void (BinnedNLLH::*SetDataSetRef)(DataSet&) = &BinnedNLLH::SetDataSet;
+
 class_<BinnedNLLH, bases<TestStatistic> >("BinnedNLLH", init<>())
 .def("set_pdf_manager", &BinnedNLLH::SetPdfManager)
 .def("set_systematic_manager", &BinnedNLLH::SetSystematicManager)
@@ -16,7 +19,7 @@ class_<BinnedNLLH, bases<TestStatistic> >("BinnedNLLH", init<>())
 .def("bin_data", &BinnedNLLH::BinData)
 .def("set_data_pdf", &BinnedNLLH::SetDataPdf)
 .def("get_data_pdf", &BinnedNLLH::GetDataPdf)
-.def("set_data_set", &BinnedNLLH::SetDataSet)
+.def("set_data_set", SetDataSetRef)
 .def("get_data_set", &BinnedNLLH::GetDataSet, return_value_policy<manage_new_object>())
 .def("set_buffer", &BinnedNLLH::SetBuffer)
 .def("get_buffer", &BinnedNLLH::GetBuffer)

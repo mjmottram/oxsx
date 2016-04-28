@@ -116,6 +116,12 @@ BinnedNLLH::AddSystematic(Systematic* sys_){
 }
 
 void
+BinnedNLLH::SetDataSet(DataSet& dataSet_){
+    fDataSet = &dataSet_;
+    fCalculatedDataPdf = false;
+}
+
+void
 BinnedNLLH::SetDataSet(DataSet* dataSet_){
     fDataSet = dataSet_;
     fCalculatedDataPdf = false;

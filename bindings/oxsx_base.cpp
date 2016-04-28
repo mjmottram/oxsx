@@ -209,5 +209,5 @@ BOOST_PYTHON_MODULE(oxsx)
 #include <teststat/QuadraticConstraint.wrap>
 #include <teststat/BinnedNLLH.wrap>
 #include <teststat/ChiSquare.wrap>
-  
+
 }

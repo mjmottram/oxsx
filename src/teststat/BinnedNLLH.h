@@ -41,6 +41,7 @@ class BinnedNLLH : public TestStatistic{
     void SetDataPdf(const BinnedPdf&);
     BinnedPdf GetDataPdf() const;
 
+    void SetDataSet(DataSet&);
     void SetDataSet(DataSet*);
     DataSet* GetDataSet();
 

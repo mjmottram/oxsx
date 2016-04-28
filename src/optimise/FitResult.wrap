@@ -9,5 +9,5 @@ class_<FitResult>("FitResult", init<>())
 .def("get_stat_sample", &FitResult::GetStatSample, return_internal_reference<>())
 .def("get_valid", &FitResult::GetValid)
 .def("set_valid", &FitResult::SetValid)
-.def("print", &FitResult::Print) // override native python __str__?
+.def("print_result", &FitResult::Print) // override native python __str__?
 .def("save_as", &FitResult::SaveAs);
