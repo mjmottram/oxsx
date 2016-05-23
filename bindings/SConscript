@@ -4,11 +4,11 @@ from distutils.sysconfig import get_python_lib
 
 Import('env')
 buildenv = env.Clone()
-    
+
 # Have to include all cpp files (unless we add to the list each time)
 buildenv.Append(LIBPATH = '#/build')
 buildenv.Append(LIBS = 'oxsx')
-buildenv.Append(LINKFLAGS = '-rpath /Users/matthewmottram/snoPlus/software/snoing-install/root-5.34.30/lib')
+buildenv.Append(LINKFLAGS = ",".join("-rpath {0}".format(l) for l in env['RPATH']))
 buildenv.Append(CPPPATH = '#/src')
 shlib = buildenv.SharedLibrary('oxsx', ['oxsx_base.cpp'],
                                SHLIBSUFFIX='.so', SHLIBPREFIX='')
