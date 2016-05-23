@@ -1,7 +1,7 @@
 class_<Rand>("Rand", init<>())
-.def("uniform", &Rand::Uniform).staticmethod("uniform")
-.def("gaus", &Rand::Gaus).staticmethod("gaus")
-.def("set_seed", &Rand::SetSeed).staticmethod("set_seed")
+.def("uniform", &Rand::Uniform, RandUniformOverloads()).staticmethod("uniform")
+.def("gaus", &Rand::Gaus, RandGausOverloads()).staticmethod("gaus")
+.def("set_seed", &Rand::SetSeed, RandSetSeedOverloads()).staticmethod("set_seed")
 .def("get_seed", &Rand::GetSeed).staticmethod("get_seed")
 .def("poisson", &Rand::Poisson).staticmethod("poisson")
 .def("shoot", &Rand::Shoot).staticmethod("shoot");

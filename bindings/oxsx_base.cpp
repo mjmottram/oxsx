@@ -51,6 +51,8 @@
 #include <QuadraticConstraint.h>
 #include <TestStatistic.h>
 
+#include <TH2D.h>
+#include <TH1D.h>
 
 // Taken directly from http://stackoverflow.com/questions/15842126 
 // See comments in main BOOST_PYTHON function.
@@ -126,6 +128,12 @@ struct VectorToList
     return list->ptr();
   }
 };
+
+
+BOOST_PYTHON_MEMBER_FUNCTION_OVERLOADS(BinnedPdfFillOverloads, BinnedPdf::Fill, 1, 2);
+BOOST_PYTHON_FUNCTION_OVERLOADS(RandUniformOverloads, Rand::Uniform, 0, 1);
+BOOST_PYTHON_FUNCTION_OVERLOADS(RandGausOverloads, Rand::Gaus, 0, 2);
+BOOST_PYTHON_FUNCTION_OVERLOADS(RandSetSeedOverloads, Rand::SetSeed, 0, 1);
 
 
 BOOST_PYTHON_MODULE(oxsx)

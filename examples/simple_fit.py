@@ -36,9 +36,9 @@ if __name__=="__main__":
     signal_mc = oxsx.ROOTNtuple(args.signal, args.treename)
 
     for i in range(0, bg_mc.get_n_entries()):
-        bg_pdf.fill_event_data(bg_mc.get_entry(i), 1.0)
+        bg_pdf.fill(bg_mc.get_entry(i))
     for i in range(0, signal_mc.get_n_entries()):
-        signal_pdf.fill_event_data(signal_mc.get_entry(i), 1.0)
+        signal_pdf.fill(signal_mc.get_entry(i))
 
     bg_pdf.normalise()
     signal_pdf.normalise()

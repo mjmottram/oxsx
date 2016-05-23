@@ -1,5 +1,5 @@
-double (Gaussian::*gaussian_integral_vector)(const std::vector<double>&, const std::vector<double>&) const = &Gaussian::Integral;
-double (Gaussian::*gaussian_integral_all)() const = &Gaussian::Integral;
+double (Gaussian::*GaussianIntegralVector)(const std::vector<double>&, const std::vector<double>&) const = &Gaussian::Integral;
+double (Gaussian::*GaussianIntegralAll)() const = &Gaussian::Integral;
 
 class_<Gaussian, bases<IntegrableFunction> >("Gaussian", init<int>())
 .def(init<double, double>())
@@ -7,8 +7,8 @@ class_<Gaussian, bases<IntegrableFunction> >("Gaussian", init<int>())
 .def("clone", &Gaussian::Clone, return_value_policy<manage_new_object>())
 .def("__call__", &Gaussian::operator())
 .def("cdf", &Gaussian::Cdf)
-.def("integral_vector", gaussian_integral_vector)
-.def("integral_all", gaussian_integral_all)
+.def("integral", GaussianIntegralVector)
+.def("integral", GaussianIntegralAll)
 .def("set_means_std_devs", &Gaussian::SetMeansStdDevs)
 .def("get_mean", &Gaussian::GetMean)
 .def("get_st_dev", &Gaussian::GetStDev)
