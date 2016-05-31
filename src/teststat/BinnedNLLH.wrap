@@ -1,6 +1,3 @@
-// This appears to be necessary for the overloaded method within the class
-//void (BinnedNLLH::*SetDataSetRef)(DataSet&) = &BinnedNLLH::SetDataSet;
-
 class_<BinnedNLLH>(m, "BinnedNLLH", base<TestStatistic>())
 .def(init<>())
 .def("set_pdf_manager", &BinnedNLLH::SetPdfManager)
@@ -20,7 +17,6 @@ class_<BinnedNLLH>(m, "BinnedNLLH", base<TestStatistic>())
 .def("bin_data", &BinnedNLLH::BinData)
 .def("set_data_pdf", &BinnedNLLH::SetDataPdf)
 .def("get_data_pdf", &BinnedNLLH::GetDataPdf)
-//.def("set_data_set", SetDataSetRef)
 .def("set_data_set", &BinnedNLLH::SetDataSet)
 .def("get_data_set", &BinnedNLLH::GetDataSet)
 .def("set_buffer", &BinnedNLLH::SetBuffer)
