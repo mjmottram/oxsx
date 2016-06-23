@@ -60,7 +60,11 @@ def parse_user_config(filename, dependencies):
 
         # should be installed in standard location - try to find it
         if dependencies[dep_name].lib_path is None:
-            dependencies[dep_name].lib_path = find_library(dependencies[dep_name].libs.split()[0])
+            try:
+                dependencies[dep_name].lib_path = find_library(dependencies[dep_name].libs.split()[0])
+            except ValueError:
+                # hmm.
+                pass
 
 def update_and_check_env(conf, dependencies):
     '''
