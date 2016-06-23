@@ -1,17 +1,17 @@
 #!/usr/bin/env python
 import os
-from distutils.sysconfig import get_python_lib
+from distutils.sysconfig import get_python_lib, get_python_inc
 
 Import('env')
 buildenv = env.Clone()
 
 # Have to include all cpp files (unless we add to the list each time)
 buildenv.Append(LIBPATH = '#/build')
-buildenv.Append(LIBS = 'oxsx')
+buildenv.Append(LIBS = ['python', 'oxsx'])
 if "RPATH" in env and env["RPATH"] != "":
     buildenv.Append(LINKFLAGS = "-rpath " + ",".join(str(l) for l in env["RPATH"]))
 buildenv.Append(CPPPATH = '#/src')
-buildenv.Append(CPPPATH = '#/pybind11/include')
+buildenv.Append(CPPPATH = [get_python_inc(), '#/pybind11/include'])
 buildenv.Append(CXXFLAGS = ' -std=c++0x')
 shlib = buildenv.SharedLibrary('oxsx', ['oxsx_pybind.cpp'],
                                SHLIBSUFFIX='.so', SHLIBPREFIX='')

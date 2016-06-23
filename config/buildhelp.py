@@ -62,10 +62,6 @@ def update_and_check_env(conf, dependencies):
     '''
     Update the build environment with the dependencies
     '''
-    # First add the python path
-    import distutils.sysconfig as syscfg
-    conf.env.Append(CPPPATH = [syscfg.get_python_inc()])
-    conf.env.Append(LIBPATH = [syscfg.get_python_lib()])
     for dep in dependencies.values():
         if dep.header_path:
             conf.env.Append(CPPPATH = [dep.header_path])
