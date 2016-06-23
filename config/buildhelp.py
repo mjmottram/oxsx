@@ -57,7 +57,11 @@ def parse_user_config(filename, dependencies):
                 dependencies[dep_name].__setattr__(opt, cparse.get(dep_name, opt))
             else:
                 print "Unknown build option: {0} for dependency {1}".format(opt, dep_name)
-    
+
+        # should be installed in standard location - try to find it
+        if dependencies[dep_name].lib_path is None:
+            dependencies[dep_name].lib_path = find_library(dependencies[dep_name].libs.split()[0])
+
 def update_and_check_env(conf, dependencies):
     '''
     Update the build environment with the dependencies
@@ -77,22 +81,22 @@ def update_and_check_env(conf, dependencies):
         check_dependency(conf, dep)
     
 
-def create_gsl_cpy_commands(conf, dependencies, copy_folder):
+def create_cpy_commands(conf, dependencies, dep_name, copy_folder):
     '''
-    Create os dependent commands. On darwin: copy all gsl libs, fix
+    Create os dependent commands. On darwin: copy gsl libs, fix
     the install names for dylibs using install_name_tool, and 
     replace lib path with the patched version. On linux: do nothing
     '''
-    if conf.env["SYSTEM"] == "Darwin" and dependencies["gsl"].lib_path:
-        lib_path = dependencies["gsl"].lib_path
+    if conf.env["SYSTEM"] == "Darwin" and dependencies[dep_name].lib_path:
+        lib_path = dependencies[dep_name].lib_path
         commands = []
 
-        for lib in Glob(os.path.join(lib_path, "*")):
+        for lib in Glob(os.path.join(lib_path, "*{0}*".format(dep_name))):
             new_path = os.path.join(copy_folder, 
                                     os.path.basename(lib.rstr()))
             action = [Copy("$TARGET", "$SOURCE")]
             
-            if "dylib" in lib.rstr():
+            if "dylib" in lib.rstr() and not os.path.islink(lib.rstr()):
                 action += [fix_dylib_for_darwin]
 
             kw = {
@@ -102,7 +106,7 @@ def create_gsl_cpy_commands(conf, dependencies, copy_folder):
                 }
             commands.append(kw)
 
-        dependencies["gsl"].lib_path = Dir(copy_folder).abspath
+        dependencies[dep_name].lib_path = Dir(copy_folder).abspath
         return commands
 
     else:
@@ -117,3 +121,17 @@ def fix_dylib_for_darwin(target, source, env):
         abspath = File(t).abspath
         check_call("install_name_tool -id {0} {0}".format(abspath),
                    shell = True)
+
+def find_library(library_name):
+    """
+    Look for a library in the standard install locations, return None if not found
+    """
+    for path in (os.path.join(os.environ["HOME"],"lib"), "/usr/lib", "/usr/local/lib"):
+        for libext in ("a", "dylib", "so"):
+            file_name = "lib{0}.{1}".format(library_name, libext)
+            try:
+                if os.path.exists(os.path.join(path, file_name)):
+                    return path
+            except:
+                pass
+    raise ValueError
