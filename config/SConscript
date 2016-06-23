@@ -23,8 +23,8 @@ if FindFile("userconfig.ini", "."):
 
 # for darwin, fix the install paths for a copy of gsl & armadillo libs,
 # on linux just leave it alone. 
-cpys = [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "gsl", "#/build/gsl")]
-cpys += [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "armadillo", "#/build/armadillo")]
+cpys = [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "gsl", "#/gsl")]
+cpys += [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "armadillo", "#/armadillo")]
 
 conf.env.Default(cpys)
 
