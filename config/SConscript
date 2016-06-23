@@ -21,12 +21,11 @@ dependencies = buildhelp.read_dependencies("dependencies.ini")
 if FindFile("userconfig.ini", "."):
     buildhelp.parse_user_config("userconfig.ini", dependencies)        
 
-# for darwin, fix the install paths for a copy of gsl & armadillo libs,
+# for darwin, fix the install paths for a copy of gsl libs,
 # on linux just leave it alone. 
-cpys = [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "gsl", "#/build/gsl")]
-cpys += [Command(**kw) for kw in buildhelp.create_cpy_commands(conf, dependencies, "armadillo", "#/build/armadillo")]
+gsl_cpys = [Command(**kw) for kw in buildhelp.create_gsl_cpy_commands(conf, dependencies, "#/gsl")]
 
-conf.env.Default(cpys)
+conf.env.Default(gsl_cpys)
 
 # update the environment, checking along the way
 buildhelp.update_and_check_env(conf, dependencies)
