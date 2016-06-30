@@ -7,14 +7,23 @@ buildenv = env.Clone()
 
 # Have to include all cpp files (unless we add to the list each time)
 buildenv.Append(LIBPATH = '#/build')
-buildenv.Append(LIBS = ['python', 'oxsx'])
-if "RPATH" in env and env["RPATH"] != "":
+buildenv.Prepend(LIBS = ['oxsx'])
+if "RPATH" in env and env["RPATH"] != "" and env["SYSTEM"] == "Darwin":
     buildenv.Append(LINKFLAGS = "-rpath " + ",".join(str(l) for l in env["RPATH"]))
 buildenv.Append(CPPPATH = '#/src')
 buildenv.Append(CPPPATH = [get_python_inc(), '#/pybind11/include'])
-buildenv.Append(CXXFLAGS = ' -std=c++0x')
+buildenv.Append(CXXFLAGS = ['-std=c++11'])
+
+# Another Mac / Linux discrepancy:
+# Macs can import the module through the PYTHONPATH
+# Linux seems to require the LD_LIBRARY_PATH
+if buildenv["SYSTEM"] == "Darwin":
+    shlib_prefix = ""
+else:
+    shlib_prefix = "lib"
+
 shlib = buildenv.SharedLibrary('oxsx', ['oxsx_pybind.cpp'],
-                               SHLIBSUFFIX='.so', SHLIBPREFIX='')
+                               SHLIBSUFFIX='.so', SHLIBPREFIX=shlib_prefix)
 
 # Install to pythonpath
 install_dir = get_python_lib()

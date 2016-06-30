@@ -12,6 +12,7 @@ source_dirs = [x.replace("src", env["SRC_VARIANT_DIR"]) for x in source_dirs]
 source_files = []
 for x in source_dirs:
     source_files += Glob(os.path.join(x,"*.cpp"))
+env.Append(CXXFLAGS = ["-fPIC"]) # For python bindings to link against the library
 
 #Copy headers into include dir
 hdrs = []
@@ -25,6 +26,7 @@ env.Default(headers)
 
 # Build the library
 objects = [env.Object(x) for x in source_files]
+
 
 lib = env.Library("liboxsx", objects)
 env.Default([objects, lib])

@@ -5,10 +5,10 @@ import platform
 import os
 
 env = Environment(CXXFLAGS = "-O2")
+env["SYSTEM"] = platform.system()
+
 if env.GetOption('clean'):
     Return('env')
-
-env["SYSTEM"] = platform.system()
 
 conf = Configure(env, log_file = "/dev/null")   
 # sanity check      
@@ -19,7 +19,12 @@ dependencies = buildhelp.read_dependencies("dependencies.ini")
 
 # now overwrite any options from custom build
 if FindFile("userconfig.ini", "."):
-    buildhelp.parse_user_config("userconfig.ini", dependencies)        
+    compiler = buildhelp.parse_user_config("userconfig.ini", dependencies)        
+else:
+    compiler = None # default
+    
+if compiler:
+    env.Replace(CXX = compiler)
 
 # for darwin, fix the install paths for a copy of gsl & armadillo libs,
 # on linux just leave it alone. 
