@@ -52,9 +52,12 @@ def parse_user_config(filename, dependencies):
         if dep_name == "g++":
             try:
                 compiler = cparse.get(dep_name, 'binary_path')
+                if not os.basename(compiler) == "g++":
+                    print('!! user_config specifies something other than full path to g++')
+                    Exit(0)
             except:
-                print('!! user_config specifies g++ without binary_path')
-                Exit(0)
+                # Assume we don't want to set the g++ compiler
+                pass
 
         elif dep_name in dependencies.keys():
             # loop over options for that dependency
